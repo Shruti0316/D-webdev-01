@@ -111,6 +111,65 @@ function swap(ob1,ob2){
     }
 });
 
+
+//Count up timer in Seconds
+var mytimer;
+addEventListener('click',function(b){
+    var sec= document.getElementById('sec');
+    var b1=b.target;
+    console.log(b1.className);
+    if(b1.className=='start_btn'){
+        clock();
+
+    }
+function clock(){
+    mytimer= setInterval(myclock,1000);
+    var c=0;
+    function myclock(){
+        ++c;    
+        sec.innerHTML=pad(c);
+        function pad(val){
+            var valstr= val+"";
+            if(valstr.length<2){
+                return "Time: 0"+valstr;
+            }
+            else{
+                return "Time: "+valstr;
+            }
+        }
+    }
+}
+});
+
+function resett(){
+
+    var tar=document.querySelectorAll('.it');
+        
+    let grid=[[tar[0],tar[1],tar[2],tar[3],tar[4]],
+                [tar[5],tar[6],tar[7],tar[8],tar[9]],
+                [tar[10],tar[11],tar[12],tar[13],tar[14]],
+                [tar[15],tar[16],tar[17],tar[18],tar[19]],
+                [tar[20],tar[21],tar[22],tar[23],tar[24]]
+            ]
+    reswap(tar[24],ob2);
+    function reswap(ob1,ob2){        
+    var next2= ob2.nextSibling;
+    if(next2 == ob1 ){
+        ob2.parentNode.insertBefore(ob1,ob2);
+    }
+    else{
+        ob1.parentNode.insertBefore(ob2,ob1);
+        if(next2){
+            ob2.parentNode.insertBefore(ob1,next2);
+        }
+        else{
+            ob2.parentNode.appendChild(ob1)
+            }
+        }
+    }
+
+}
+
 //chk if it match the target
 let moves=0;
 function iscomplete(){
@@ -128,18 +187,18 @@ function iscomplete(){
         boxes[7].style.backgroundColor===tar[17].style.backgroundColor &&
         boxes[8].style.backgroundColor===tar[18].style.backgroundColor)
         {
-            finish();
+            //declare victory
+            document.getElementById('overlay').style.display="block"
         }
 }        
-//Decalre Victory
-function finish(){
-    document.querySelector(".msg").textContent = "YOU WIN!";
-}
 
-//reset button function
-function clicked(){
-    document.querySelector(".msg").textContent = "";
-    document.querySelector('.move').textContent='Move: 0';
-    
+//keep going button function
+function again(){
+    document.querySelector('.move').textContent='Move: 00';
+    moves=0;
+    document.querySelector('#sec').textContent='Time: 00';
+    clearInterval(mytimer);
+    resett();
     shuffle();
+    document.getElementById('overlay').style.display="none"
 }
