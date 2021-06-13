@@ -1,7 +1,6 @@
 body{
     background-color: black;
 }
-
 h1{
     background: -webkit-linear-gradient(rgb(243, 189, 189),rgb(214, 38, 91));
     -webkit-background-clip: text;
@@ -10,7 +9,6 @@ h1{
     font-size: 50px;
     padding-bottom: 10px;
 }
-
 hr{
     color: azure;
     background-color: azure;
@@ -41,8 +39,7 @@ hr{
 }
 
 .container{
-    background-color: rgb(101, 151 , 91);
-    /* padding-left: 650px; */
+    background-color: rgb(149, 202, 153);
     padding: 9px;
     height: 450px;
     width: 450px;
@@ -60,7 +57,7 @@ hr{
 }
 
 #empty{
-    background-color: rgb(101, 151 , 91);
+    background-color: rgb(149, 202, 153);
     border-radius: 5px;
 }
 
@@ -73,8 +70,6 @@ hr{
     justify-content: space-between;
     font-size: 22px;
 }
-
-
 .btn{
     font-weight: bold;
 }
@@ -90,7 +85,6 @@ hr{
     color: black;
     background-color: aqua;
 }
-
 .audio{
     font-size: x-large;
     color: magenta;
@@ -98,7 +92,7 @@ hr{
 
 #overlay{
     position: fixed;
-    display: block;
+    display: none;
     width: 100%;
     height: 100%;
     top:0;
