@@ -1,5 +1,5 @@
 //list of colors
-col=['Red','Blue','White','yellow','chartreuse','orange'];
+col=['Red','Blue','White','yellow','green','orange'];
 
 //randomly assigning color to main grid items
 function shuffle(){
@@ -15,6 +15,7 @@ function gcolor(){
     }
 }
 
+//calling function to add color 
 gcolor();
 tcolor();
 
@@ -48,8 +49,9 @@ addEventListener('click',function(ob1){
     ob1=document.getElementById(a);
     
     //function to find out row and col of clicked pieces
+    
     function rc(){
-
+    
         var boxes=document.getElementsByClassName('box');
         var tar=document.querySelectorAll('.it');
         
@@ -110,7 +112,6 @@ function swap(ob1,ob2){
     iscomplete();
     }
 });
-
 
 //Count up timer in Seconds
 var mytimer;
@@ -176,8 +177,9 @@ function iscomplete(){
     var boxes=document.getElementsByClassName('box');
     var tar=document.querySelectorAll('.it');
     moves++;
+  
     document.querySelector('.move').textContent='Move: '+moves;
-    if( boxes[0].style.backgroundColor===tar[6].style.backgroundColor &&
+    if( boxes[0].style.backgroundColor===tar[6].style.backgroundColor &&
         boxes[1].style.backgroundColor===tar[7].style.backgroundColor &&
         boxes[2].style.backgroundColor===tar[8].style.backgroundColor &&
         boxes[3].style.backgroundColor===tar[11].style.backgroundColor &&
@@ -189,10 +191,10 @@ function iscomplete(){
         {
             //declare victory
             document.getElementById('overlay').style.display="block"
+            clearInterval(mytimer);
         }
 }        
 
-//keep going button function
 function again(){
     document.querySelector('.move').textContent='Move: 00';
     moves=0;
