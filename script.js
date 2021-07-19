@@ -1,6 +1,6 @@
-//list of colors
-col=['Red','Blue','White','yellow','green','orange'];
-
+clock();
+// list of colors
+col=['Red','Blue','White','yellow','green','brown'];
 //randomly assigning color to main grid items
 function shuffle(){
 var gitem = document.querySelectorAll('.item');
@@ -13,8 +13,8 @@ function gcolor(){
         gitem[i].style.backgroundColor = col[j];
         garray.push(col[j]);
     }
+    document.getElementById("empty").style.backgroundColor= "rgb(149, 202, 153)";
 }
-
 //calling function to add color 
 gcolor();
 tcolor();
@@ -41,7 +41,7 @@ function tcolor(){
     }
 }
 shuffle();
-
+var ob2;
 ob2=document.getElementById('empty');
 addEventListener('click',function(ob1){
     var ob=ob1.target;
@@ -69,7 +69,8 @@ addEventListener('click',function(ob1){
                         }   
                 }       
                 
-                var chk=document.querySelector('#empty');
+                //var chk=document.querySelector('#empty');
+                var chk=ob2;
                 for(let i=0;i<5;++i){
                     for(let j=0;j<5;++j){
                         if(grid[i][j]===chk){
@@ -81,8 +82,9 @@ addEventListener('click',function(ob1){
 var coln= rc();
 var row = x[0]+1;
 var col = x[1]+1;
-var erow = y[0]+1;
+var erow = y[0]+1;  //empty block row
 var ecol = y[1]+1;
+// console.log("row, col erow, ecol  ",row,col,erow,ecol );
 
 adjacent();
 
@@ -95,34 +97,27 @@ function adjacent(){
 
 //swapping the pieces
 function swap(ob1,ob2){
-
-    var next2= ob2.nextSibling;
-    if(next2 == ob1 ){
-        ob2.parentNode.insertBefore(ob1,ob2);
-    }
-    else{
-        ob1.parentNode.insertBefore(ob2,ob1);
-        if(next2){
-            ob2.parentNode.insertBefore(ob1,next2);
-        }
-        else{
-            ob2.parentNode.appendChild(ob1)
-            }
-        }
+    var temp=ob1.style.backgroundColor;
+    // console.log("temp color: ",ob1.style.backgroundColor);
+    // console.log(ob2.style.backgroundColor);
+    ob1.style.backgroundColor=ob2.style.backgroundColor;
+    ob2.style.backgroundColor=temp;
+    document.getElementById('swap').play();
     iscomplete();
     }
+
+    //Updating ob2(empty block)
+    var blocks=document.getElementsByClassName("it");
+    Array.from(blocks).forEach(function(e){
+        //console.log(e.style.backgroundColor);
+        if(e.style.backgroundColor=="rgb(149, 202, 153)"){
+            ob2=e;
+        }
+    });
+    //console.log("after swap ob2: ",ob2);
 });
 
 //Count up timer in Seconds
-var mytimer;
-addEventListener('click',function(b){
-    var sec= document.getElementById('sec');
-    var b1=b.target;
-    console.log(b1.className);
-    if(b1.className=='start_btn'){
-        clock();
-
-    }
 function clock(){
     mytimer= setInterval(myclock,1000);
     var c=0;
@@ -138,46 +133,16 @@ function clock(){
                 return "Time: "+valstr;
             }
         }
+        timeTaken=c;
     }
 }
-});
-
-function resett(){
-
-    var tar=document.querySelectorAll('.it');
-        
-    let grid=[[tar[0],tar[1],tar[2],tar[3],tar[4]],
-                [tar[5],tar[6],tar[7],tar[8],tar[9]],
-                [tar[10],tar[11],tar[12],tar[13],tar[14]],
-                [tar[15],tar[16],tar[17],tar[18],tar[19]],
-                [tar[20],tar[21],tar[22],tar[23],tar[24]]
-            ]
-    reswap(tar[24],ob2);
-    function reswap(ob1,ob2){        
-    var next2= ob2.nextSibling;
-    if(next2 == ob1 ){
-        ob2.parentNode.insertBefore(ob1,ob2);
-    }
-    else{
-        ob1.parentNode.insertBefore(ob2,ob1);
-        if(next2){
-            ob2.parentNode.insertBefore(ob1,next2);
-        }
-        else{
-            ob2.parentNode.appendChild(ob1)
-            }
-        }
-    }
-
-}
-
 //chk if it match the target
 let moves=0;
 function iscomplete(){
     var boxes=document.getElementsByClassName('box');
     var tar=document.querySelectorAll('.it');
     moves++;
-  
+    //console.log("TiME:",timeTaken);
     document.querySelector('.move').textContent='Move: '+moves;
     if( boxes[0].style.backgroundColor===tar[6].style.backgroundColor &&
         boxes[1].style.backgroundColor===tar[7].style.backgroundColor &&
@@ -189,18 +154,19 @@ function iscomplete(){
         boxes[7].style.backgroundColor===tar[17].style.backgroundColor &&
         boxes[8].style.backgroundColor===tar[18].style.backgroundColor)
         {
+                
             //declare victory
-            document.getElementById('overlay').style.display="block"
+            var score=Math.round(10000/(moves+timeTaken));
+            document.getElementById('overlay').style.display="block";
+            document.getElementById('score').textContent += score;
+            var hs= localStorage.getItem("HighScore");
+            console.log("highscore",hs);
+            if(hs==null || hs<score){
+                hs=score;
+            }
+            localStorage.setItem("HighScore",hs);
+            document.getElementById('highsc').textContent += hs;
+            //document.getElementById('Highscore').textContent += moves;
             clearInterval(mytimer);
         }
-}        
-
-function again(){
-    document.querySelector('.move').textContent='Move: 00';
-    moves=0;
-    document.querySelector('#sec').textContent='Time: 00';
-    clearInterval(mytimer);
-    resett();
-    shuffle();
-    document.getElementById('overlay').style.display="none"
 }
