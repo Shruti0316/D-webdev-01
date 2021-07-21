@@ -154,9 +154,9 @@ function iscomplete(){
         boxes[7].style.backgroundColor===tar[17].style.backgroundColor &&
         boxes[8].style.backgroundColor===tar[18].style.backgroundColor)
         {
-                
-            //declare victory
             var score=Math.round(10000/(moves+timeTaken));
+            //declare victory
+            document.getElementById('victory').play();
             document.getElementById('overlay').style.display="block";
             document.getElementById('score').textContent += score;
             var hs= localStorage.getItem("HighScore");
