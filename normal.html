@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Titan+One&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="normal.css">
     </head>
 
     <body>
@@ -55,7 +55,9 @@
             <button class="btn" onclick="location.reload()">RESET</button>
             <span class="move">Move: 00</span>
             <span id="sec">Time: 00</span>
-            <audio class="audio"><source src="win.wav">audio yay</audio>
+            <audio id="victory">
+                <source src="sounds/win.mp3" type="audio/mp3">
+            </audio>
             
         </div>
         </div>
@@ -66,8 +68,8 @@
             <button class="again" onclick="location.assign('start.html')">Keep Going!</button>
         </div>
         <audio id="swap">
-            <source src="switch-1.mp3" type="audio/mp3">
+            <source src="sounds/switch-1.mp3" type="audio/mp3">
         </audio>
-       <script src="script.js"></script>
+       <script src="normal.js"></script>
     </body>
 </html>
